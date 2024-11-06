@@ -1,0 +1,35 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div class="container">
+			<button id="connectBtn">Connect to backend server</button>
+		</div>
+
+		<script>
+			const connectBtn = document.querySelector("#connectBtn") as HTMLButtonElement
+
+			const connectFn = async (): Promise<{ connected: boolean }> => {
+				const res = await fetch(`http://localhost:3000/api/test`, {
+					credentials: 'include'
+				})
+				const data = await res.json()
+				return data
+			}
+
+			connectBtn?.addEventListener('click', async (e) => {
+				const message = await connectFn()
+				console.log(message)
+			})
+		</script>
+	</body>
+</html>
